@@ -34,6 +34,8 @@
 
 #include "../vmem/virtual_memory.h"
 
+const int ins_num = 5000;
+
 namespace vta {
 namespace sim {
 
@@ -237,7 +239,7 @@ class Profiler {
   /*! \brief instr counter for store */
   int64_t store_counter{0};
   
-  char instruction_order[10000];
+  char instruction_order[ins_num];
   int insIdx{0};
   /*! \brief clear the profiler */
   void Clear() {
@@ -269,9 +271,10 @@ class Profiler {
        << " \"alu_counter\":" << alu_counter << ",\n"
        << " \"load_counter\":" << load_counter << ",\n"
        << " \"store_counter\":" << store_counter << "\n"
-       <<"}\n";
-    for(int i=0; i<10000; i++){
-       os << " \"instruction\":" << instruction_order[i] << " ";
+       <<"}\n"
+       << " \"instruction\":";
+    for(int i=0; i<ins_num; i++){
+       os << instruction_order[i] << " ";
     }
      os << "\n";
     return os.str();
@@ -336,7 +339,7 @@ class Device {
 
   void RunLoad(const VTAMemInsn* op) {
     prof_->load_counter++;
-    if(prof_->insIdx < 9999) prof_->instruction_order[prof_->insIdx++] = 'l';
+    if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 'l';
     if (op->x_size == 0) return;
     if (op->memory_type == VTA_MEM_ID_INP) {
       inp_.Load(op, dram_, &(prof_->inp_load_nbytes), prof_->SkipExec());
@@ -355,7 +358,7 @@ class Device {
 
   void RunStore(const VTAMemInsn* op) {
     prof_->store_counter++;
-    if(prof_->insIdx < 9999) prof_->instruction_order[prof_->insIdx++] = 's';
+    if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 's';
     if (op->x_size == 0) return;
     if (op->memory_type == VTA_MEM_ID_ACC ||
         op->memory_type == VTA_MEM_ID_UOP) {
@@ -373,7 +376,7 @@ class Device {
   void RunGEMM(const VTAGemInsn* op) {
     if (!op->reset_reg) {
       prof_->gemm_counter += op->iter_out * op->iter_in * (op->uop_end - op->uop_bgn);
-    if(prof_->insIdx < 9999) prof_->instruction_order[prof_->insIdx++] = 'g';
+    if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 'g';
       if (prof_->SkipExec()) return;
       for (uint32_t y = 0; y < op->iter_out; ++y) {
         for (uint32_t x = 0; x < op->iter_in; ++x) {
@@ -470,7 +473,7 @@ class Device {
   template<bool use_imm, typename F>
   void RunALULoop(const VTAAluInsn* op, F func) {
     prof_->alu_counter += op->iter_out * op->iter_in * (op->uop_end - op->uop_bgn);
-    if(prof_->insIdx < 9999) prof_->instruction_order[prof_->insIdx++] = 'a';
+    if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 'a';
     if (prof_->SkipExec()) return;
     for (int y = 0; y < op->iter_out; ++y) {
       for (int x = 0; x < op->iter_in; ++x) {
