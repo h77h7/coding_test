@@ -336,7 +336,7 @@ class Device {
 
   void RunLoad(const VTAMemInsn* op) {
     prof_->load_counter++;
-    prof_->instruction_order[insIdx++] = 'l';
+    if(prof_->insIdx < 9999) prof_->instruction_order[prof_->insIdx++] = 'l';
     if (op->x_size == 0) return;
     if (op->memory_type == VTA_MEM_ID_INP) {
       inp_.Load(op, dram_, &(prof_->inp_load_nbytes), prof_->SkipExec());
@@ -355,7 +355,7 @@ class Device {
 
   void RunStore(const VTAMemInsn* op) {
     prof_->store_counter++;
-    prof_->instruction_order[insIdx++] = 's';
+    if(prof_->insIdx < 9999) prof_->instruction_order[prof_->insIdx++] = 's';
     if (op->x_size == 0) return;
     if (op->memory_type == VTA_MEM_ID_ACC ||
         op->memory_type == VTA_MEM_ID_UOP) {
@@ -373,7 +373,7 @@ class Device {
   void RunGEMM(const VTAGemInsn* op) {
     if (!op->reset_reg) {
       prof_->gemm_counter += op->iter_out * op->iter_in * (op->uop_end - op->uop_bgn);
-    prof_->instruction_order[insIdx++] = 'g';
+    if(prof_->insIdx < 9999) prof_->instruction_order[prof_->insIdx++] = 'g';
       if (prof_->SkipExec()) return;
       for (uint32_t y = 0; y < op->iter_out; ++y) {
         for (uint32_t x = 0; x < op->iter_in; ++x) {
@@ -470,7 +470,7 @@ class Device {
   template<bool use_imm, typename F>
   void RunALULoop(const VTAAluInsn* op, F func) {
     prof_->alu_counter += op->iter_out * op->iter_in * (op->uop_end - op->uop_bgn);
-    prof_->instruction_order[insIdx++] = 'a';
+    if(prof_->insIdx < 9999) prof_->instruction_order[prof_->insIdx++] = 'a';
     if (prof_->SkipExec()) return;
     for (int y = 0; y < op->iter_out; ++y) {
       for (int x = 0; x < op->iter_in; ++x) {
