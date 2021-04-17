@@ -34,7 +34,7 @@
 
 #include "../vmem/virtual_memory.h"
 
-const int ins_num = 5000;
+const int ins_num = 60000;
 
 namespace vta {
 namespace sim {
@@ -239,7 +239,7 @@ class Profiler {
   /*! \brief instr counter for store */
   int64_t store_counter{0};
   
-  char instruction_order[ins_num];
+  int instruction_order[ins_num];
   int insIdx{0};
   /*! \brief clear the profiler */
   void Clear() {
@@ -270,13 +270,12 @@ class Profiler {
        << " \"gemm_counter\":" << gemm_counter << ",\n"
        << " \"alu_counter\":" << alu_counter << ",\n"
        << " \"load_counter\":" << load_counter << ",\n"
-       << " \"store_counter\":" << store_counter << "\n"
-       <<"}\n"
-       << " \"instruction\":";
-    for(int i=0; i<ins_num; i++){
-       os << instruction_order[i] << " ";
+       << " \"store_counter\":" << store_counter << ",\n";
+    for(int i=0; i<ins_num-1; i++){
+       os << " \"ins" << i << "\":" << instruction_order[i] << ",\n";
     }
-     os << "\n";
+    os << " \"ins" << ins_num-1 << "\":" << instruction_order[ins_num-1] << "\n";
+     os << "}\n";
     return os.str();
   }
 
@@ -339,15 +338,18 @@ class Device {
 
   void RunLoad(const VTAMemInsn* op) {
     prof_->load_counter++;
-    if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 'l';
     if (op->x_size == 0) return;
     if (op->memory_type == VTA_MEM_ID_INP) {
+      if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 1;
       inp_.Load(op, dram_, &(prof_->inp_load_nbytes), prof_->SkipExec());
     } else if (op->memory_type == VTA_MEM_ID_WGT) {
+      if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 2;
       wgt_.Load(op, dram_, &(prof_->wgt_load_nbytes), prof_->SkipExec());
     } else if (op->memory_type == VTA_MEM_ID_ACC) {
+      if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 3;
       acc_.Load(op, dram_, &(prof_->acc_load_nbytes), prof_->SkipExec());
     } else if (op->memory_type == VTA_MEM_ID_UOP) {
+      if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 4;
       // always load in uop, since uop is stateful
       // subsequent non-debug mode exec can depend on it.
       uop_.Load(op, dram_, &(prof_->uop_load_nbytes), false);
@@ -358,10 +360,16 @@ class Device {
 
   void RunStore(const VTAMemInsn* op) {
     prof_->store_counter++;
-    if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 's';
     if (op->x_size == 0) return;
     if (op->memory_type == VTA_MEM_ID_ACC ||
         op->memory_type == VTA_MEM_ID_UOP) {
+        if(op->memory_type == VTA_MEM_ID_ACC){
+            if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 7;
+        }
+        else if(op->memory_type == VTA_MEM_ID_UOP){
+
+            if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 8;
+        }
       prof_->out_store_nbytes += (
           op->x_size * op->y_size * VTA_BATCH * VTA_BLOCK_OUT * VTA_OUT_WIDTH / 8);
       if (!prof_->SkipExec()) {
@@ -376,7 +384,7 @@ class Device {
   void RunGEMM(const VTAGemInsn* op) {
     if (!op->reset_reg) {
       prof_->gemm_counter += op->iter_out * op->iter_in * (op->uop_end - op->uop_bgn);
-    if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 'g';
+    if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 5;
       if (prof_->SkipExec()) return;
       for (uint32_t y = 0; y < op->iter_out; ++y) {
         for (uint32_t x = 0; x < op->iter_in; ++x) {
@@ -473,7 +481,7 @@ class Device {
   template<bool use_imm, typename F>
   void RunALULoop(const VTAAluInsn* op, F func) {
     prof_->alu_counter += op->iter_out * op->iter_in * (op->uop_end - op->uop_bgn);
-    if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 'a';
+    if(prof_->insIdx < ins_num) prof_->instruction_order[prof_->insIdx++] = 6;
     if (prof_->SkipExec()) return;
     for (int y = 0; y < op->iter_out; ++y) {
       for (int x = 0; x < op->iter_in; ++x) {
@@ -573,3 +581,4 @@ int VTADeviceRun(VTADeviceHandle handle,
 
 void VTAProgram(const char* bitstream) {
 }
+
