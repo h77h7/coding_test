@@ -1,0 +1,921 @@
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/xilinx/tvm-04.26/python/tvm/rpc/server.py", line 118, in _serve_loop
+    _ffi_api.ServerLoop(sockfd)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+AttributeError: Traceback (most recent call last):
+  4: TVMFuncCall
+  3: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), tvm::runtime::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  2: tvm::runtime::RPCServerLoop(int)
+  1: tvm::runtime::RPCEndpoint::ServerLoop()
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 84, in server_shutdown
+    runtime_dll[0].VTARuntimeShutdown()
+  File "/usr/lib/python3.6/ctypes/__init__.py", line 361, in __getattr__
+    func = self.__getitem__(name)
+  File "/usr/lib/python3.6/ctypes/__init__.py", line 366, in __getitem__
+    func = self._FuncPtr((name_or_ordinal, self))
+AttributeError: /home/xilinx/tvm-04.26/vta/python/vta/../../../build/libvta.so: undefined symbol: VTARuntimeShutdown
+
+
+Reconfigured FPGA and RPC runtime in 3.16s!
+resnet18_v1 inference graph built in 24.46s!
+Traceback (most recent call last):
+  File "deploy_classification.py", line 213, in <module>
+    m = graph_executor.GraphModule(lib["default"](ctx))
+  File "/home/eun/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+tvm.error.RPCError: Traceback (most recent call last):
+  8: TVMFuncCall
+  7: _ZNSt17_Function_handlerIFvN3tvm7runtime7TVMArgsEPNS1_11
+  6: tvm::runtime::RPCWrappedFunc::operator()(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*) const
+  5: tvm::runtime::RPCClientSession::CallFunc(void*, TVMValue const*, int const*, int, std::function<void (tvm::runtime::TVMArgs)> const&)
+  4: tvm::runtime::RPCEndpoint::CallFunc(void*, TVMValue const*, int const*, int, std::function<void (tvm::runtime::TVMArgs)>)
+  3: tvm::runtime::RPCEndpoint::HandleUntilReturnEvent(bool, std::function<void (tvm::runtime::TVMArgs)>)
+  2: tvm::runtime::RPCEndpoint::EventHandler::HandleNextEvent(bool, bool, std::function<void (tvm::runtime::TVMArgs)>)
+  1: tvm::runtime::RPCEndpoint::EventHandler::HandleProcessPacket(std::function<void (tvm::runtime::TVMArgs)>)
+  0: tvm::runtime::RPCEndpoint::EventHandler::HandleReturn(tvm::runtime::RPCCode, std::function<void (tvm::runtime::TVMArgs)>)
+  16: TVMFuncCall
+  15: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), tvm::runtime::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  14: tvm::runtime::RPCServerLoop(int)
+  13: tvm::runtime::RPCEndpoint::ServerLoop()
+  12: tvm::runtime::RPCEndpoint::HandleUntilReturnEvent(bool, std::function<void (tvm::runtime::TVMArgs)>)
+  11: tvm::runtime::RPCEndpoint::EventHandler::HandleNextEvent(bool, bool, std::function<void (tvm::runtime::TVMArgs)>)
+  10: tvm::runtime::RPCEndpoint::EventHandler::HandleProcessPacket(std::function<void (tvm::runtime::TVMArgs)>)
+  9: tvm::runtime::RPCSession::AsyncCallFunc(void*, TVMValue const*, int const*, int, std::function<void (tvm::runtime::RPCCode, tvm::runtime::TVMArgs)>)
+  8: tvm::runtime::LocalSession::CallFunc(void*, TVMValue const*, int const*, int, std::function<void (tvm::runtime::TVMArgs)> const&)
+  7: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), tvm::runtime::GraphExecutorFactory::GetFunction(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, tvm::runtime::ObjectPtr<tvm::runtime::Object> const&)::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#1}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  6: tvm::runtime::GraphExecutorFactory::ExecutorCreate(std::vector<DLDevice, std::allocator<DLDevice> > const&)
+  5: tvm::runtime::GraphExecutor::Init(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, tvm::runtime::Module, std::vector<DLDevice, std::allocator<DLDevice> > const&, tvm::runtime::PackedFunc)
+  4: tvm::runtime::GraphExecutor::SetupStorage()
+  3: tvm::runtime::NDArray::Empty(std::vector<long long, std::allocator<long long> >, DLDataType, DLDevice, tvm::runtime::Optional<tvm::runtime::String>)
+  2: tvm::runtime::DeviceAPIManager::GetAPI(int, bool)
+  1: tvm::runtime::DeviceAPIManager::GetAPI(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, bool)
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 63, in ext_dev_callback
+    return tvm.get_global_func("device_api.ext_dev")()
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 237, in __call__
+    raise get_last_ffi_error()
+  1: TVMFuncCall
+  0: std::_Function_handler<void (tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*), TVMFuncCreateFromCFunc::{lambda(tvm::runtime::TVMArgs, tvm::runtime::TVMRetValue*)#2}>::_M_invoke(std::_Any_data const&, tvm::runtime::TVMArgs&&, tvm::runtime::TVMRetValue*&&)
+  File "/home/xilinx/tvm-04.26/python/tvm/_ffi/_ctypes/packed_func.py", line 81, in cfun
+    rv = local_pyfunc(*pyargs)
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 62, in ext_dev_callback
+    load_vta_dll()
+  File "/home/xilinx/tvm-04.26/vta/python/vta/exec/rpc_server.py", line 52, in load_vta_dll
+    logging.info("Loading VTA library: %s", dll_path)
+  File "/usr/lib/python3.6/logging/__init__.py", line 1900, in info
+    root.info(msg, *args, **kwargs)
+  File "/usr/lib/python3.6/logging/__init__.py", line 1306, in info
+    self._log(INFO, msg, args, **kwargs)
+  File "/usr/lib/python3.6/logging/__init__.py", line 1441, in _log
+    exc_info, func, extra, sinfo)
+  File "/usr/lib/python3.6/logging/__init__.py", line 1411, in makeRecord
+    sinfo)
+  File "/usr/lib/python3.6/logging/__init__.py", line 277, in __init__
+    if (args and len(args) == 1 and isinstance(args[0], collections.Mapping)
+  File "/home/eun/tvm_original/src/runtime/rpc/rpc_endpoint.cc", line 377
+RPCError: Error caught from RPC call:
+RecursionError: maximum recursion depth exceeded in comparison
+eun@eun-VirtualBox:~/tvm-04.26/vta/tutorials/frontend$ 
+
